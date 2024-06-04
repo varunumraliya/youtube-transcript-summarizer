@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Project</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        form {
+            max-width: 500px;
+            margin: 50px auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        input[type="submit"] {
+            color: #fff;
+            background-color: #27ae60;
+            cursor: pointer;
+            border: none;
+        }
+        input[type="submit"]:hover {
+            background-color: #2ecc71;
+        }
+        #overlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2;
+            cursor: pointer;
+        }
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-size: 20px;
+            color: white;
+            transform: translate(-50%, -50%);
+            border: 8px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 8px solid #3498db;
+            width: 60px;
+            height: 60px;
+            -webkit-animation: spin 2s linear infinite; /* Safari */
+            animation: spin 2s linear infinite;
+        }
+        /* Safari */
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>YouTube Transcript Summarizer</h1>
+    <form onsubmit="showLoading()" action="/summary" method="post">
+        <label for="source">Enter YouTube video URL or audio file path:</label>
+        <input type="text" id="source" name="source" required>
+        <input type="submit" value="Get Summary">
+    </form>
+    <div id="overlay">
+        <div id="loading"></div>
+    </div>
+    <script>
+        function showLoading() {
+            document.getElementById('overlay').style.display = 'block';
+            document.querySelector('input[type="submit"]').disabled = true; // Disable submit button to prevent multiple submissions
+        }
+    </script>
+</body>
+</html>

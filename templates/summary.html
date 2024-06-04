@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 80px; /* increased margin to add space */
+            width: 90%; /* adjust as needed */
+        }
+        .container div {
+            width: 45%;
+        }
+        p {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            color: #3498db;
+        }
+        textarea {
+            width: 100%; /* Increased width */
+            height: 450px; /* Specific height for more content */
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box; /* Padding and border included in width/height */
+            resize: none; /* Disables resizing the textarea */
+            font-family: 'Courier New', Courier, monospace; /* Stylish monospaced font */
+            font-size: 16px; /* Larger font size for readability */
+            line-height: 1.5; /* Spacing between lines */
+            background-color: #f9f9f9; /* Slightly gray background indicating non-editability */
+            color: #333; /* Default text color for better readability */
+        }
+        .go-back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .go-back-btn:hover {
+            background-color: #0056b3;
+            }
+            #copy-btn {
+    padding: 6px 20px;
+    color: white;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#copy-btn:hover {
+    background-color: #45a049; /* Darker green */
+}
+    </style>
+</head>
+<body>
+    <h1>Summary</h1>
+    <div class="container">
+        <div>
+            <p>Transcript</p>
+            <textarea id="transcript" rows="10" cols="50" readonly>{{ transcript }}</textarea>
+        </div>
+        <div>
+            <p>Summary</p>
+            <textarea id="summary-text" rows="10" cols="50" readonly>{{ summary  }}</textarea>
+            <button id="copy-btn">Copy Summary</button>
+            <div id="popup" style="display: none;">Copied!</div>
+        </div>
+    </div>
+    <a href="{{ url_for('index') }}" class="go-back-btn">Go To Home</a>
+    
+</body>
+<script>
+document.getElementById('copy-btn').addEventListener('click', function() {
+    // Select the summary text
+    var summaryText = document.getElementById('summary-text');
+    summaryText.select();
+    summaryText.setSelectionRange(0, 99999); // For mobile devices
+
+    // Copy the text to the clipboard
+    document.execCommand('copy');
+
+    // Show the popup
+    var popup = document.getElementById('popup');
+    popup.style.display = 'block';
+
+    // Hide the popup after 2 seconds
+    setTimeout(function() {
+        popup.style.display = 'none';
+    }, 2000);
+});
+</script>
+</html>
